@@ -10,7 +10,7 @@ class Middleware {
         jwt.verify(token, process.env.JWT_TOKEN_SECRET, (err, data) => {
             if (err) return res.status(403).json({ message: "Invalid token" });
 
-            userModel.findOne(data._id, (err, user) => {
+            userModel.findOne({ _id: data.id }, (err, user) => {
                 if (err) return res.status(500).json({ message: "Internal server error" });
 
                 req.user = user;
